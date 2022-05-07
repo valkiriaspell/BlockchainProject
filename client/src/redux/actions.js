@@ -9,7 +9,7 @@ export const LOGIN = 'LOGIN';
 export function getWallet(address) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.get(`/wallet/${address}`)
+            const { data } = await axios.get(`http://localhost:3001/wallet/${address}`)
             dispatch({ type: GET_WALLET, payload: data })
         } catch (e) {
             console.log(e)
@@ -20,7 +20,7 @@ export function getWallet(address) {
 export function getWalletEvents(address) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.get(`/wallet/events/${address}`)
+            const { data } = await axios.get(`http://localhost:3001/wallet/events/${address}`)
             dispatch({ type: GET_WALLET_TIME, payload: data })
         } catch (e) {
             console.log(e)
@@ -31,7 +31,7 @@ export function getWalletEvents(address) {
 export function getFavWallets(email) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.get(`/wallet/favs/${email}`)
+            const { data } = await axios.get(`http://localhost:3001/wallet/favs/${email}`)
             dispatch({ type: GET_FAV_WALLETS, payload: data })
         } catch (e) {
             console.log(e)
@@ -42,7 +42,7 @@ export function getFavWallets(email) {
 export function saveUser(user) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.post('/wallet/user', user)
+            const { data } = await axios.post('http://localhost:3001/wallet/user', user)
             dispatch({ type: NEW_USER , payload: data })
         } catch (e) {
             console.log(e)
@@ -60,7 +60,7 @@ export function userToken(token) {
 export function loginUser(email) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.get(`/users/${email}`)
+            const { data } = await axios.get(`http://localhost:3001/users/${email}`)
             dispatch({ type: 'LOGIN', payload: data })
             console.log(data)
             return data

@@ -2,6 +2,8 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable, Post } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { map, Observable } from 'rxjs';
+import { User } from 'src/models/user.model';
+import { CreateUserDto } from './dto/create-user.dto';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
 const {API_KEY} = process.env;
@@ -20,6 +22,12 @@ export class WalletService {
 
   create(createWalletDto: CreateWalletDto, userEmail) {
     return 'algo tipo findorcreat de una wallet recibiendo address y vinculandose a user por email' ;
+  }
+
+  async createUser(createUserDto: CreateUserDto) {
+    const newUser = new User(createUserDto)   
+    return await newUser.save()
+    
   }
 
   findAll() {

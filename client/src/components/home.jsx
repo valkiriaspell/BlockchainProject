@@ -1,19 +1,17 @@
 import React, {useState} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {
 	firebaseLogin,	
 	firebaseLoginGoogle,
 } from '../utils/Firebase';
 import Google from './images/google.png';
-import Contraseña from './images/unlock.png';
-import Email from './images/email.png';
-import Arrow from './images/arrow.png';
 import Perfil from './images/user.png';
 import {useDispatch} from 'react-redux';
 import {loginUser, userToken} from '../redux/actions';
 import Swal from "sweetalert2";
 import { saveUser } from '../redux/actions';
 import { useHistory } from 'react-router';
+import {Form, Button, Container} from 'react-bootstrap'
 
 function Home() {
     const dispatch = useDispatch();
@@ -77,49 +75,54 @@ function Home() {
     return (
 		<div>
 			
-			<div className='containerLogin'>
+			<div >
 				
-				<div className='contentLogin'>
-					<form onSubmit={handleLogin}>
-						<div className='imgUser'>
+				<div >
+                    <Form onSubmit={handleLogin}>
+                        <Container>
+						<div >
 							<img src={Perfil} alt='User' width={60} />
 						</div>
-						<div className='input'>
-							<img src={Email} alt='Email' width={22} />
-							<input
+                            <Form.Group>
+                            <Form.Label>Email: </Form.Label>
+							<Form.Control
 								name='email'
 								type='email'
 								placeholder='Email'
 								value={input.email}
 								onChange={(e) => handleOnChange(e)}
 							/>
-						</div>
-						<div className='input'>
-							<img src={Contraseña} alt='Contraseña' width={20} />
-							<input
+					
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Password: </Form.Label>
+							<Form.Control
 								name='password'
 								type='password'
 								placeholder='Contraseña'
 								value={input.password}
 								onChange={(e) => handleOnChange(e)}
 							/>
-						</div>
-						<button className='buttonLogin' type='submit'>
+					
+                        </Form.Group>
+                        <Form.Group>
+						<Button type='submit'>
 							Ingresar
-						</button>
-						<NavLink className='linkContraseña' to={'recuperarcontrasena'}>
-							¿Olvidaste tu contraseña?
-						</NavLink>
-					</form>
-					<div className='contentLogin2'>
-						<img src={Arrow} alt='Arrow' className='imgArrow' width={27} />
-						<Link className='buttonSingUP' to={'/signup'}>
+						</Button>
+                        </Form.Group>
+                        <Form.Group>						
+                        </Form.Group>
+                        
+                        <Form.Group> 
+						<Button onClick={handleLoginGoogle}>
+							Ingresar con Google <img src={Google} width={20} alt='Google' />
+						</Button>
+                        </Form.Group>
+                        </Container>				
+                        </Form>
+                         <Link to="/signup">						
 							Registrarse
 						</Link>
-						<button onClick={handleLoginGoogle}>
-							Ingresar con Google <img src={Google} width={20} alt='Google' />
-						</button>
-					</div>
 				</div>
 			</div>
 		</div>

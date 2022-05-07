@@ -32,7 +32,7 @@ function SignUpFirebase() {
      
           dispatch(
             saveUser({
-              name: input.name,
+              userName: input.name,
               email: input.email,                          
             })
           );
