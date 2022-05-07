@@ -9,7 +9,7 @@ export class WalletController {
 
   @Post()
   create(@Body() createWalletDto: CreateWalletDto) {
-    return this.walletService.create(createWalletDto);
+    return 'this.walletService.create(createWalletDto) o algo asi';
   }
 
   @Get()

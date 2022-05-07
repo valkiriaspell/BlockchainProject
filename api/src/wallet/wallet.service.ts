@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Post } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { map, Observable } from 'rxjs';
 import { CreateWalletDto } from './dto/create-wallet.dto';
@@ -18,8 +18,8 @@ type Wallet = {
 export class WalletService {
   constructor(private httpService: HttpService) {}
 
-  create(createWalletDto: CreateWalletDto) {
-    return 'This action adds a new wallet';
+  create(createWalletDto: CreateWalletDto, userEmail) {
+    return 'algo tipo findorcreat de una wallet recibiendo address y vinculandose a user por email' ;
   }
 
   findAll() {
