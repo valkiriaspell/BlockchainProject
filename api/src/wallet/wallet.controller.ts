@@ -8,9 +8,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
-  @Post()
-  create(@Body() createWalletDto: CreateWalletDto) {
-    return 'this.walletService.create(createWalletDto) o algo asi';
+  @Post('/:email')
+  create(@Body() createWalletDto: CreateWalletDto, @Param('email') email: string) {
+    return this.walletService.createWallet(createWalletDto,email);
   }
 
   @Post('/user')
@@ -28,16 +28,17 @@ export class WalletController {
     return this.walletService.findWalletBalance(address);
   }
 
+  @Get('/user/:email')
+  findUser(@Param('email') email: string) {
+    return this.walletService.findUser(email);
+  }
+
   @Get('/events/:address')
   findWalletEvents(@Param('address') address: string) {
     return this.walletService.findWalletEvents(address);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWalletDto: UpdateWalletDto) {
-    return this.walletService.update(+id, updateWalletDto);
-  }
-
+ 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.walletService.remove(+id);

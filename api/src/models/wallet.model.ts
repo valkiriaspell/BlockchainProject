@@ -8,7 +8,7 @@ export class Wallet extends Model {
 
     @ForeignKey(() => User)
     @Column
-    userEmail: string
+    email: string
 
     @BelongsTo(() => User)
     user: User

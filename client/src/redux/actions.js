@@ -6,6 +6,8 @@ export const GET_WALLET_TIME = 'GET_WALLET_TIME'
 export const USER_TOKEN = 'USER_TOKEN';
 export const LOGIN = 'LOGIN';
 
+
+
 export function getWallet(address) {
     return async function (dispatch) {
         try {
@@ -60,7 +62,7 @@ export function userToken(token) {
 export function loginUser(email) {
     return async function (dispatch) {
         try {
-            const { data } = await axios.get(`http://localhost:3001/users/${email}`)
+            const { data } = await axios.get(`http://localhost:3001/wallet/user/${email}`)
             dispatch({ type: 'LOGIN', payload: data })
             console.log(data)
             return data
