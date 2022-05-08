@@ -21,14 +21,13 @@ function SignUpFirebase() {
     });
 
     function handleChange(e) {
-       setInput({ ...input, [e.target.name]: e.target.value });    
+       setInput({ ...input, [e.target.name]: e.target.value });
+       console.log(input.name, input.email)    
       }
     
     
       async function handleRegister(e) {
-        e.preventDefault();
-        
-    
+        e.preventDefault();       
      
           dispatch(
             saveUser({
@@ -41,7 +40,7 @@ function SignUpFirebase() {
             input.password
           );
           if (registrar.accessToken) {            
-            history.push("/login");
+            history.push("/");
           } 
       }
 

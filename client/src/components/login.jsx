@@ -34,7 +34,7 @@ function Login() {
 			const login = await firebaseLogin(input.email, input.password);
 			if (login?.accessToken) {
 				
-					await dispatch(loginUser(input.email));
+					dispatch(loginUser(input.email));
 					dispatch(userToken(login.accessToken));
 					localStorage.setItem('email', login.email);
 					localStorage.setItem('token', login.accessToken);

@@ -1,30 +1,28 @@
 import { HttpService } from '@nestjs/axios';
-import { ConsoleLogger, Injectable, Post } from '@nestjs/common';
+import { Injectable, Post } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { map, Observable } from 'rxjs';
 import { User } from 'src/models/user.model';
-import { Wallet } from 'src/models/wallet.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
 const {API_KEY} = process.env;
+
+type Wallet = {
+  status: number;
+  message: string;
+  result: string;
+};
+
 
 
 @Injectable()
 export class WalletService {
   constructor(private httpService: HttpService) {}
 
-  async createWallet(createWalletDto: CreateWalletDto, email: string) {
-   try {   
-    const newWallet = new Wallet(createWalletDto)   
-    newWallet.$set('user',[])
-       
-    
-   } catch (e){
-     return `There is an error: ${e}`
-   }
+  create(createWalletDto: CreateWalletDto, userEmail) {
+    return 'algo tipo findorcreat de una wallet recibiendo address y vinculandose a user por email' ;
   }
-
 
   async createUser(createUserDto: CreateUserDto) {
     const newUser = new User(createUserDto)   
@@ -59,7 +57,6 @@ export class WalletService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} wallet from favs`;
+    return `This action removes a #${id} wallet`;
   }
-  
 }

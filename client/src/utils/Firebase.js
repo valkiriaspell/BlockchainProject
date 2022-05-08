@@ -29,7 +29,7 @@ import {
     } catch (error) { 
       Swal.fire({
           icon: "error",          
-          text: "The email is already in use",
+          text: "Registration failed",
           heightAuto: false,
         });
     }

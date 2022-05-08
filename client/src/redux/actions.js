@@ -43,6 +43,7 @@ export function getFavWallets(email) {
 
 export function saveUser(user) {
     return async function (dispatch) {
+        console.log(user, "AQUI USER")
         try {
             const { data } = await axios.post('http://localhost:3001/wallet/user', user)
             dispatch({ type: NEW_USER , payload: data })
