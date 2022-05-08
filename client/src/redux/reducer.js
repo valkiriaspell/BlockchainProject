@@ -24,10 +24,33 @@ const rootReducer = (state = initialState, action) => {
                 wallet: action.payload,
             }
         case GET_WALLET_TIME:
+            let times = []
+            for (let i = 0; i < action.payload.result.length ; i++){
+                if (action.payload.result[i].hasOwnProperty("timeStamp")){
+                    times.push(action.payload.result[i].timeStamp)
+                    
+                }
+            }
 
+            let result = ""
+
+            if (times) {
+                let dates = times.map(e => new Date(e * 1000))
+                let today = new Date()            
+                today.setFullYear(today.getFullYear() - 1);
+                                
+                for (let i = 0; i < action.payload.result.length ; i++){
+                    if(dates[i].getTime() < today.getTime()){
+                        result = "old"
+                    } else {
+                        result = "new"
+                    }
+                console.log(result)
+            }
+        }
             return {
                 ...state,
-                walletTime: action.payload,
+                walletTime: result,
             }
         case USER_TOKEN:
             return {

@@ -9,7 +9,8 @@ export const LOGIN = 'LOGIN';
 
 
 export function getWallet(address) {
-    return async function (dispatch) {
+    return async function (dispatch) {        
+        console.log(address, "addres pedida")
         try {
             const { data } = await axios.get(`http://localhost:3001/wallet/${address}`)
             dispatch({ type: GET_WALLET, payload: data })
