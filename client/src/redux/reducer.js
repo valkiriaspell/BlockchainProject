@@ -1,4 +1,4 @@
-import { GET_FAV_WALLETS, GET_WALLET, GET_WALLET_TIME, USER_TOKEN, LOGIN } from './actions.js'
+import { GET_FAV_WALLETS, GET_WALLET, GET_WALLET_TIME, USER_TOKEN, LOGIN, ERROR } from './actions.js'
 
 
 const initialState = {
@@ -7,10 +7,18 @@ const initialState = {
     walletTime: {},
     userToken: {},
     user: {},
+    manyWallets: [],
+    error: ""
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ERROR:
+
+            return {
+                ...state,
+                error: action.payload,
+            }
         case GET_FAV_WALLETS:
 
             return {
@@ -44,14 +52,15 @@ const rootReducer = (state = initialState, action) => {
                         result = "old"
                     } else {
                         result = "new"
-                    }
-                console.log(result)
+                    }                
             }
         }
             return {
                 ...state,
                 walletTime: result,
+                manyWallets: [...state.manyWallets,{address: action.address, time: result}]
             }
+
         case USER_TOKEN:
             return {
                 ...state,

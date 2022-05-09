@@ -1,5 +1,13 @@
-.homeContainer{
+
+
+.logOut {
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.cardsContainer {
     display: flex;
-    text-align: left;
-    align-items: left;
+    flex-wrap: wrap;
+    
 }

@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import { Link } from 'react-router-dom';
 import {NavLink, useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import { firebaseCerrarSesion } from '../utils/Firebase';
 import { loginUser } from '../redux/actions';
 import { BsDoorOpenFill } from "react-icons/bs"
 import { BsPersonCircle } from "react-icons/bs"
+import './home.modules.css'
 
 
 function Menu() {
@@ -21,7 +21,7 @@ function Menu() {
 	}, []);
     const {user} = useSelector((state) => state)
 
-    async function handleSignOut(e) {
+    async function handleLogout(e) {
 		e.preventDefault();
 		await firebaseCerrarSesion();
 		localStorage.clear();
@@ -51,12 +51,10 @@ function Menu() {
                 </div>               
                 <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                        <BsPersonCircle></BsPersonCircle>                        <span className="navbar-text" >¡Hi, {user.userName}! </span>
-                        </li>                        
-                        <li className="nav-item">
-                            <a className="nav-link" href="#"><BsDoorOpenFill></BsDoorOpenFill></a>                        
-                        </li>
+                        <BsPersonCircle></BsPersonCircle> <span className="navbar-text" >¡Hi, {user.userName}! </span>
+                        </li>                  
                     </ul>                     
+                            <button className="logOut" onClick={(e)=> handleLogout(e)}><BsDoorOpenFill></BsDoorOpenFill></button>                        
             </nav>
         </div>
 

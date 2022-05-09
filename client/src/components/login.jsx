@@ -92,6 +92,7 @@ function Login() {
 					
                         </Form.Group>
                         <Form.Group>
+							<br></br>
 						<Button type='submit'>
 							Login
 						</Button>
@@ -100,6 +101,7 @@ function Login() {
                         </Form.Group>
                         
                         <Form.Group> 
+							<br></br>
 						<Button onClick={handleLoginGoogle}>
 							Login with google <img src={Google} width={20} alt='Google' />
 						</Button>
