@@ -71,8 +71,8 @@ function Home() {
                             <div className="card-body">
                                 <p className="card-title">Address: {wallet.address}</p>
                                 <p>Balance:</p>
-                                <p className="card-text">wei: {wallet.result}</p>                                
-                                <p className="card-text">ether: {wallet.result/(1000000000*1000000000)}</p>                                
+                                <p className="card-text">wei {wallet.result}</p>                                
+                                <p className="card-text">ether {wallet.result/(1000000000*1000000000)}</p>                                
                                 <br></br>
                                 <button type="button" className="btn btn-light" style={{marginTop: 15 + "px"}}>Add to favorites</button>
                                 <br></br>
@@ -82,11 +82,13 @@ function Home() {
                                     )}                                    
                                 </select>
                                 <div style={{marginTop: 10 + "px"}}>                                 
-                                {balanceConverted? <p>{balanceConverted}</p> : null}
+                                {balanceConverted? <span class="badge bg-secondary bg-secondary">{balanceConverted}</span> : null}
                                 </div>
                             </div>                            
                             </div>
-                    : "Loading..."}
+                    : <div class="spinner-border text-success" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>}
                         </div> :
                         <span>{error}</span>}
                   
