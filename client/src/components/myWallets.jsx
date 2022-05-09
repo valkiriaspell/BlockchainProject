@@ -10,6 +10,7 @@ function MyWallets() {
 
     //---> Local States
     let [coinName, setCoin] = useState("eth")
+    
 
     //---> Store States
     const { user } = useSelector((state) => state)
@@ -17,25 +18,32 @@ function MyWallets() {
     const etherData = useSelector((state) => state.ethPrices)      
 
     //---> functions
-    console.log("user en wallets", user)
+    
 
     useEffect(() => {
         console.log( "adress que vienen de back",user.wallets,)
-           
-            dispatch(getMultipleWallets(user.wallets.map(e => e.address)))
-        
+           if(user.wallets){
+               dispatch(getMultipleWallets(user.wallets.map(e => e.address)))
+            }       
 
     }, [])
 
     let finalWallets = []
-    // if (user.wallets && typeof multipleWallets.result !== "string" ) {
-    //     multipleWallets.result.map(e =>
-    //         finalWallets.push({ account: e.account, balance: e.balance / (1000000000 * 1000000000) }))
-    // }
+    if (user.wallets.length > 0 && multipleWallets.result.length > 0) {
+        if (typeof multipleWallets.result !== "string"){
 
-    async function convertCoin(e) {
+            multipleWallets.result.map(e =>
+                finalWallets.push({ account: e.account, balance: e.balance / (1000000000 * 1000000000) }))
+            }
+    }
+
+   function convertCoin(e) {
         e.preventDefault()        
         setCoin(e.target.value)        
+    }
+
+    function removeFromFavs(e) {
+    console.log(e.target.value, "boton")
     }
 
     let coinSelected = etherData[coinName]    
@@ -43,7 +51,7 @@ function MyWallets() {
     finalWallets.map(e =>
         newbalances.push({ account: e.account, balance: e.balance * coinSelected }))
         finalWallets = newbalances
-        console.log(finalWallets, "resultados")
+        
 
 // {
 //     "status":"1",
@@ -84,14 +92,17 @@ return (
                         <div className="card-body">
                             <p className="card-title">Address: {w.account}</p>
                             <p>Balance:</p>
-                            <p className="card-text">{coinName} {(w.balance).toFixed(2)}</p>
+                            <p className="card-text">{coinName} {(w.balance).toFixed(10)}</p>
                             <br></br>
+                            <button type="button" value={w.account} className="btn btn-light" style={{marginTop: 15 + "px"}} onClick={(e) => removeFromFavs(e)}>Remove from favorites</button>
                         </div>
                     </div>
                 )
 
                 :
-                null}
+                <div className="spinner-border text-success" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>}
         </div>
         </div>
         : <h4></h4> }

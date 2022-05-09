@@ -45,10 +45,13 @@ function Home() {
 
     }
 
-    function saveToFavs(e) {        
-        dispatch(saveWallet({address: address, email: user.email}))
-        dispatch(loginUser(email))
-        dispatch(getMultipleWallets(user.wallets))
+    function saveToFavs(e) {
+        if (address !== ""){
+
+            dispatch(saveWallet({address: address, email: user.email}))
+            dispatch(loginUser(email))
+            dispatch(getMultipleWallets(user.wallets.map(e => e.address)))
+        }        
     }
 
     function convertCoin(e) {

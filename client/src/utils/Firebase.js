@@ -29,7 +29,7 @@ import {
     } catch (error) { 
       Swal.fire({
           icon: "error",          
-          text: "Registration failed",
+          text: "Password must be at least 6 characters long",
           heightAuto: false,
         });
     }
