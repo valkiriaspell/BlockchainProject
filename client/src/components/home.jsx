@@ -1,9 +1,9 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getWallet, getWalletEvents } from '../redux/actions';
+import { getEthereumData, getWallet, getWalletEvents } from '../redux/actions';
 import s from './home.modules.css'
-import WalletCard from './walletCard';
+
 
 
 
@@ -13,12 +13,15 @@ function Home() {
     //---> Local states
     let [currentWallet, setWallet] = useState({})
     let [address, setAddress] = useState("")
+    let [balanceConverted, setExchange] = useState()
+  
 
     //---> Store States
 
     const { wallet } = useSelector((state) => state)
     const { walletTime } = useSelector((state) => state)
     const { error } = useSelector((state) => state)
+    const etherData = useSelector((state) => state.ethPrices)
 
     //---> Functions
     async function searchWallet(e) {
@@ -29,13 +32,24 @@ function Home() {
         holdWallet()
     }
 
-    useEffect(() => {
-        console.log("updated")
-    }, [address])
+    useEffect(() => {        
+        dispatch(getEthereumData())
+    }, [])
 
 
     function holdWallet() {
         setWallet({ address: address, balance: wallet.result, time: walletTime })
+
+    }
+
+    async function convertCoin(e) {
+        e.preventDefault()
+        let etherBalance = wallet.result/(1000000000*1000000000)
+        let selection = e.target.value
+        let coinSelected = etherData[selection]
+        let result = etherBalance*coinSelected
+        console.log(result, "total")
+        setExchange(result)      
 
     }
 
@@ -56,9 +70,20 @@ function Home() {
                             <div className="card-header">This Wallet is {walletTime}</div>
                             <div className="card-body">
                                 <p className="card-title">Address: {wallet.address}</p>
-                                <p className="card-text">Balance: {wallet.result}</p>                                
+                                <p>Balance:</p>
+                                <p className="card-text">wei: {wallet.result}</p>                                
+                                <p className="card-text">ether: {wallet.result/(1000000000*1000000000)}</p>                                
                                 <br></br>
-                                <button>Add to favorites</button>
+                                <button type="button" className="btn btn-light" style={{marginTop: 15 + "px"}}>Add to favorites</button>
+                                <br></br>
+                                <select className="btn btn-light" style={{marginTop: 15 + "px"}} onChange={(e)=> convertCoin(e)}>
+                                {Object.keys(etherData).map(k => 
+                                    <option key={k} value={k}>{k.toUpperCase()}</option>
+                                    )}                                    
+                                </select>
+                                <div style={{marginTop: 10 + "px"}}>                                 
+                                {balanceConverted? <p>{balanceConverted}</p> : null}
+                                </div>
                             </div>                            
                             </div>
                     : "Loading..."}

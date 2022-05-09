@@ -6,6 +6,7 @@ export const GET_WALLET_TIME = 'GET_WALLET_TIME'
 export const USER_TOKEN = 'USER_TOKEN';
 export const LOGIN = 'LOGIN';
 export const ERROR = 'ERROR';
+export const COINS = 'COINS';
 
 
 
@@ -21,6 +22,20 @@ export function getWallet(address) {
         }
     }
 }
+
+export function getEthereumData() {
+return async function (dispatch) {    
+    try {
+        const { data } = await axios.get(`https://api.coingecko.com/api/v3/coins/ethereum?market_data=true&community_data=false&developer_data=false&sparkline=false`)
+        dispatch({ type: COINS, payload: data})
+    
+    } catch(e) {
+        console.log(e)
+    }
+
+}
+}
+
 
 export function getWalletEvents(address) {
     return async function (dispatch) {

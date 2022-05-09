@@ -1,4 +1,4 @@
-import { GET_FAV_WALLETS, GET_WALLET, GET_WALLET_TIME, USER_TOKEN, LOGIN, ERROR } from './actions.js'
+import { GET_FAV_WALLETS, GET_WALLET, GET_WALLET_TIME, USER_TOKEN, LOGIN, ERROR, COINS } from './actions.js'
 
 
 const initialState = {
@@ -8,17 +8,22 @@ const initialState = {
     userToken: {},
     user: {},
     manyWallets: [],
-    error: ""
+    error: "",
+    ethPrices:[]
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case ERROR:
-
             return {
                 ...state,
                 error: action.payload,
             }
+        case COINS:       
+                return {
+                    ...state,
+                    ethPrices: action.payload.market_data.current_price,
+                }
         case GET_FAV_WALLETS:
 
             return {
