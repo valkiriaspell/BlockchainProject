@@ -25,7 +25,8 @@ export class WalletService {
   }
 
   async createUser(createUserDto: CreateUserDto) {
-    const newUser = new User(createUserDto)   
+    const newUser = new User(createUserDto)
+    console.log("User successfully created")   
     return await newUser.save()    
   }
 

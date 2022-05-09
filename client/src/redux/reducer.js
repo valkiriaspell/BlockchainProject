@@ -1,4 +1,4 @@
-import { GET_FAV_WALLETS, GET_WALLET, GET_WALLET_TIME, USER_TOKEN, LOGIN, ERROR, COINS } from './actions.js'
+import { GET_FAV_WALLETS, GET_WALLET, GET_WALLET_TIME, USER_TOKEN, LOGIN, ERROR, COINS, GET_MULTIPLE_WALLETS } from './actions.js'
 
 
 const initialState = {
@@ -7,9 +7,9 @@ const initialState = {
     walletTime: {},
     userToken: {},
     user: {},
-    manyWallets: [],
     error: "",
-    ethPrices:[]
+    ethPrices: [],
+    multipleWallets: []
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -19,30 +19,36 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 error: action.payload,
             }
-        case COINS:       
-                return {
-                    ...state,
-                    ethPrices: action.payload.market_data.current_price,
-                }
+        case COINS:
+            return {
+                ...state,
+                ethPrices: action.payload.market_data.current_price,
+            }
         case GET_FAV_WALLETS:
 
             return {
                 ...state,
                 favWallets: action.payload,
             }
+        case GET_MULTIPLE_WALLETS:
+
+            return {
+                ...state,
+                multipleWallets: action.payload,
+            }
         case GET_WALLET:
-            let obj = {...action.payload,address: action.address}
+            let obj = { ...action.payload, address: action.address }
             return {
                 ...state,
                 wallet: obj,
-                error: action.error,                
+                error: action.error,
             }
         case GET_WALLET_TIME:
             let times = []
-            for (let i = 0; i < action.payload.result.length ; i++){
-                if (action.payload.result[i].hasOwnProperty("timeStamp")){
+            for (let i = 0; i < action.payload.result.length; i++) {
+                if (action.payload.result[i].hasOwnProperty("timeStamp")) {
                     times.push(action.payload.result[i].timeStamp)
-                    
+
                 }
             }
 
@@ -50,17 +56,17 @@ const rootReducer = (state = initialState, action) => {
 
             if (times) {
                 let dates = times.map(e => new Date(e * 1000))
-                let today = new Date()            
+                let today = new Date()
                 today.setFullYear(today.getFullYear() - 1);
-                                
-                for (let i = 0; i < action.payload.result.length ; i++){
-                    if(dates[i].getTime() < today.getTime()){
+
+                for (let i = 0; i < action.payload.result.length; i++) {
+                    if (dates[i].getTime() < today.getTime()) {
                         result = "old"
                     } else {
                         result = "new"
-                    }                
+                    }
+                }
             }
-        }
             return {
                 ...state,
                 walletTime: result,

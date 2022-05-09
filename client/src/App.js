@@ -8,6 +8,7 @@ import { initializeApp } from 'firebase/app';
 import { Switch, Route } from "react-router";
 import Login from './components/login';
 import Menu from './components/menu';
+import MyWallets from './components/myWallets';
 
 initializeApp(config);
 
@@ -23,6 +24,7 @@ function App() {
       </Route>      
       <Route path="/home/mywallets">
       <Menu></Menu>
+      <MyWallets></MyWallets>
       </Route>    
       </Switch>
     </div>

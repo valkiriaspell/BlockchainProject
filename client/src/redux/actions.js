@@ -1,5 +1,6 @@
 import axios from 'axios'
 export const GET_FAV_WALLETS = 'GET_FAV_WALLETS'
+export const GET_MULTIPLE_WALLETS = 'GET_MULTIPLE_WALLETS'
 export const GET_WALLET = 'GET_WALLET'
 export const NEW_USER = 'NEW_USER'
 export const GET_WALLET_TIME = 'GET_WALLET_TIME'
@@ -54,6 +55,20 @@ export function getFavWallets(email) {
         try {
             const { data } = await axios.get(`http://localhost:3001/wallet/favs/${email}`)
             dispatch({ type: GET_FAV_WALLETS, payload: data })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export function getMultipleWallets(arr) {
+
+    let addresses = arr.join(",")
+    console.log( addresses, "addresses")
+    return async function (dispatch) {
+        try {
+            const { data } = await axios.get(`https://api-goerli.etherscan.io/api?module=account&action=balancemulti&address=${addresses}&apikey=18ZCFNB2IT84VZP4IJQ3K9ITWM3RC47D66`)
+            dispatch({ type: GET_MULTIPLE_WALLETS, payload: data })
         } catch (e) {
             console.log(e)
         }

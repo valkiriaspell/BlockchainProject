@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {NavLink, useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import { firebaseCerrarSesion } from '../utils/Firebase';
-import { loginUser } from '../redux/actions';
+import { getEthereumData, loginUser } from '../redux/actions';
 import { BsDoorOpenFill } from "react-icons/bs"
 import { BsPersonCircle } from "react-icons/bs"
 import './home.modules.css'
@@ -17,9 +17,12 @@ function Menu() {
     const email = localStorage.getItem('email');
     
     useEffect(() => {
-        dispatch(loginUser(email))		
+        dispatch(loginUser(email))
+        dispatch(getEthereumData())		
 	}, []);
+
     const {user} = useSelector((state) => state)
+    const etherData = useSelector((state) => state.ethPrices)
 
     async function handleLogout(e) {
 		e.preventDefault();
@@ -50,6 +53,15 @@ function Menu() {
                     </ul>                   
                 </div>               
                 <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                <span className="navbar-text" >1 ethereum = </span>
+                </li>     
+                <li className="nav-item">
+                <span className="navbar-text" style={{marginLeft: 10 + "px"}} >${etherData.usd} /</span>
+                </li>     
+                <li className="nav-item">
+                <span className="navbar-text" style={{marginLeft: 10 + "px", marginRight: 20 + "px" }}> €{etherData.eur}</span>
+                </li>     
                         <li className="nav-item">
                         <BsPersonCircle></BsPersonCircle> <span className="navbar-text" >¡Hi, {user.userName}! </span>
                         </li>                  

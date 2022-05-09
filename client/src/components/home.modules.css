@@ -11,3 +11,8 @@
     flex-wrap: wrap;
     
 }
+
+.containerWallets{
+    display: flex;
+    flex-wrap: wrap;
+}
