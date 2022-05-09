@@ -26,10 +26,11 @@ const rootReducer = (state = initialState, action) => {
                 favWallets: action.payload,
             }
         case GET_WALLET:
-
+            let obj = {...action.payload,address: action.address}
             return {
                 ...state,
-                wallet: action.payload,
+                wallet: obj,
+                error: action.error,                
             }
         case GET_WALLET_TIME:
             let times = []
@@ -58,7 +59,7 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 walletTime: result,
-                manyWallets: [...state.manyWallets,{address: action.address, time: result}]
+                error: action.error
             }
 
         case USER_TOKEN:

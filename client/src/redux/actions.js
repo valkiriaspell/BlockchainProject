@@ -14,7 +14,7 @@ export function getWallet(address) {
         console.log(address, "addres pedida")
         try {
             const { data } = await axios.get(`http://localhost:3001/wallet/${address}`)
-            dispatch({ type: GET_WALLET, payload: data, address: address })
+            dispatch({ type: GET_WALLET, payload: data, address: address, error: "" })
         } catch (e) {
             console.log(e)
             dispatch({ type: ERROR, payload: "Not found" })
@@ -26,7 +26,7 @@ export function getWalletEvents(address) {
     return async function (dispatch) {
         try {
             const { data } = await axios.get(`http://localhost:3001/wallet/events/${address}`)
-            dispatch({ type: GET_WALLET_TIME, payload: data, address: address })
+            dispatch({ type: GET_WALLET_TIME, payload: data, address: address, error: "" })
         } catch (e) {
             console.log(e)
             dispatch({ type: ERROR, payload: "Not found" })
