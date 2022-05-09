@@ -8,8 +8,8 @@ export class WalletController {
   constructor(private readonly walletService: WalletService) {}
 
   @Post()
-  create(@Body() createWalletDto: CreateWalletDto) {
-    return 'this.walletService.create(createWalletDto) o algo asi';
+  createWallet(@Body() createWalletDto: CreateWalletDto): Promise<any> {
+    return this.walletService.createUserWallet(createWalletDto);
   }
 
   @Post('/user')

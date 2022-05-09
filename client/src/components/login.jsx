@@ -8,12 +8,12 @@ import Perfil from './images/user.png';
 import { useDispatch } from 'react-redux';
 import { loginUser, userToken } from '../redux/actions';
 import { saveUser } from '../redux/actions';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { Form, Button, Container } from 'react-bootstrap'
 
 function Login() {
 	const dispatch = useDispatch();
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const [input, setInput] = useState({
 		email: '',
@@ -34,9 +34,8 @@ function Login() {
 			dispatch(loginUser(input.email));
 			dispatch(userToken(login.accessToken));
 			localStorage.setItem('email', login.email);
-			localStorage.setItem('token', login.accessToken);
-			console.log(history, "aqui")
-			history.push('/home');
+			localStorage.setItem('token', login.accessToken);			
+			navigate('/home');
 		}
 	}
 
@@ -52,7 +51,7 @@ function Login() {
 			);
 			localStorage.setItem('email', iniciarSesion.email);
 			localStorage.setItem('token', iniciarSesion.accessToken);
-			history.push('/home');
+			navigate('/home');
 		}
 	}
 

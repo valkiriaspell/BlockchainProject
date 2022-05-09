@@ -14,23 +14,24 @@ function MyWallets() {
     //---> Store States
     const { user } = useSelector((state) => state)
     let { multipleWallets } = useSelector((state) => state)
-    const etherData = useSelector((state) => state.ethPrices)
-
-    //ejemplo
-    const arr = ["0xa65760c16a47bb1c7d5373d9d18736084e2d3f66", "0x39fe7a6512c0b70d734515ddbdea9410ae7c26d0"]
-    //
-
+    const etherData = useSelector((state) => state.ethPrices)      
 
     //---> functions
+    console.log("user en wallets", user)
+
     useEffect(() => {
-        dispatch(getMultipleWallets(arr))
-    }, [coinName])
+        console.log( "adress que vienen de back",user.wallets,)
+           
+            dispatch(getMultipleWallets(user.wallets.map(e => e.address)))
+        
+
+    }, [])
 
     let finalWallets = []
-    if (multipleWallets.result) {
-        multipleWallets.result.map(e =>
-            finalWallets.push({ account: e.account, balance: e.balance / (1000000000 * 1000000000) }))
-    }
+    // if (user.wallets && typeof multipleWallets.result !== "string" ) {
+    //     multipleWallets.result.map(e =>
+    //         finalWallets.push({ account: e.account, balance: e.balance / (1000000000 * 1000000000) }))
+    // }
 
     async function convertCoin(e) {
         e.preventDefault()        
@@ -42,7 +43,7 @@ function MyWallets() {
     finalWallets.map(e =>
         newbalances.push({ account: e.account, balance: e.balance * coinSelected }))
         finalWallets = newbalances
-        console.log(finalWallets, "final")
+        console.log(finalWallets, "resultados")
 
 // {
 //     "status":"1",
@@ -67,6 +68,8 @@ function MyWallets() {
 
 return (
     <div >
+        {user.wallets?
+        <div>        
         <div>
             <select className="btn btn-light" style={{ marginTop: 15 + "px" }} onChange={(e) => convertCoin(e)}>
                 {Object.keys(etherData).map(k =>
@@ -81,7 +84,7 @@ return (
                         <div className="card-body">
                             <p className="card-title">Address: {w.account}</p>
                             <p>Balance:</p>
-                            <p className="card-text">ether {(w.balance).toFixed(2)}</p>
+                            <p className="card-text">{coinName} {(w.balance).toFixed(2)}</p>
                             <br></br>
                         </div>
                     </div>
@@ -90,6 +93,8 @@ return (
                 :
                 null}
         </div>
+        </div>
+        : <h4></h4> }
     </div>
 );
 }

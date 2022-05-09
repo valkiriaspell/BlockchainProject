@@ -1,5 +1,9 @@
 
-
+.homeContainer{
+    display: flex;
+    flex-direction: column;    
+    align-items: center;
+}
 .logOut {
     border: none;
     cursor: pointer;

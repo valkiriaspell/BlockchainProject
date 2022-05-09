@@ -1,17 +1,19 @@
 import React, {useEffect} from 'react';
-import { useHistory} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import { firebaseCerrarSesion } from '../utils/Firebase';
 import { getEthereumData, loginUser } from '../redux/actions';
 import { BsDoorOpenFill } from "react-icons/bs"
 import { BsPersonCircle } from "react-icons/bs"
 import './home.modules.css'
+import { useNavigate } from 'react-router';
 
 
 function Menu() {
 
     const dispatch = useDispatch();
-	const history = useHistory();
+	const navigate = useNavigate();
+    
 
     const autenticado = localStorage.getItem('token');
     const email = localStorage.getItem('email');
@@ -28,7 +30,7 @@ function Menu() {
 		e.preventDefault();
 		await firebaseCerrarSesion();
 		localStorage.clear();
-		history.push('/');
+		navigate('/');
 	}
 
     return (
@@ -42,13 +44,13 @@ function Menu() {
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="/home">Home <span className="sr-only">(current)</span></a>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/home">Home </NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/home/mywallets">My Wallets</a>
+                        <NavLink className="nav-link" to="/mywallets">My Wallets</NavLink>
                         </li><li className="nav-item">
-                            <a className="nav-link disabled" href="#">About</a>
+                        <NavLink className="nav-link" to="/calculator">ETH Calculator</NavLink>
                         </li>
                     </ul>                   
                 </div>               

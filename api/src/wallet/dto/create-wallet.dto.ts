@@ -1,3 +1,4 @@
 export class CreateWalletDto {
-    address: string   
+    address: string;
+    email: string;
 }

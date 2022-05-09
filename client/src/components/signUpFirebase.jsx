@@ -8,11 +8,11 @@ import Perfil from './images/user.png';
 import User from './images/user.png';
 import { useDispatch } from "react-redux";
 import { saveUser } from "../redux/actions";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 
 function SignUpFirebase() {
     const dispatch = useDispatch();    
-    const history = useHistory();
+    const navigate = useNavigate();
   
     const [input, setInput] = useState({
       name: "",
@@ -40,7 +40,7 @@ function SignUpFirebase() {
             input.password
           );
           if (registrar.accessToken) {            
-            history.push("/");
+            navigate("/");
           } 
       }
 

@@ -3,16 +3,10 @@ import { Injectable, Post } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { map, Observable } from 'rxjs';
 import { User } from 'src/models/user.model';
+import { Wallet } from 'src/models/wallet.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CreateWalletDto } from './dto/create-wallet.dto';
-import { UpdateWalletDto } from './dto/update-wallet.dto';
-const {API_KEY} = process.env;
 
-type Wallet = {
-  status: number;
-  message: string;
-  result: string;
-};
 
 
 
@@ -20,18 +14,18 @@ type Wallet = {
 export class WalletService {
   constructor(private httpService: HttpService) {}
 
-  create(createWalletDto: CreateWalletDto, userEmail) {
-    return 'algo tipo findorcreat de una wallet recibiendo address y vinculandose a user por email' ;
+  async createUserWallet(createWalletDto: CreateWalletDto) {
+    const newWallet = new Wallet(createWalletDto)
+    return await newWallet.save();
   }
 
   async createUser(createUserDto: CreateUserDto) {
-    const newUser = new User(createUserDto)
-    console.log("User successfully created")   
+    const newUser = new User(createUserDto)     
     return await newUser.save()    
   }
 
   async findUser(email: string) {
-    const userFound = await User.findOne({where: {email}})
+    const userFound = await User.findOne({where: {email}, include: [{model: Wallet}]})
     return !userFound ? 'Email not registered' : userFound; 
   }
 
@@ -41,7 +35,7 @@ export class WalletService {
 
   async findWalletBalance(address: string): Promise<Observable<AxiosResponse<any, any>>> {
     
-    return this.httpService.get(`https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=18ZCFNB2IT84VZP4IJQ3K9ITWM3RC47D66`)
+    return this.httpService.get(`https://api-goerli.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=18ZCFNB2IT84VZP4IJQ3K9ITWM3RC47D66`)
     .pipe(
       map((response) => response.data)
     )    

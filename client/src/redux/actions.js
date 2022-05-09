@@ -13,7 +13,7 @@ export const COINS = 'COINS';
 
 export function getWallet(address) {
     return async function (dispatch) {        
-        console.log(address, "addres pedida")
+        
         try {
             const { data } = await axios.get(`http://localhost:3001/wallet/${address}`)
             dispatch({ type: GET_WALLET, payload: data, address: address, error: "" })
@@ -50,11 +50,11 @@ export function getWalletEvents(address) {
     }
 }
 
-export function getFavWallets(email) {
-    return async function (dispatch) {
+export function saveWallet(wallet) {
+    console.log(wallet, "aqui va el wallet a favs")
+    return async function () {
         try {
-            const { data } = await axios.get(`http://localhost:3001/wallet/favs/${email}`)
-            dispatch({ type: GET_FAV_WALLETS, payload: data })
+            const { data } = await axios.post(`http://localhost:3001/wallet`, wallet)            
         } catch (e) {
             console.log(e)
         }
@@ -62,7 +62,7 @@ export function getFavWallets(email) {
 }
 
 export function getMultipleWallets(arr) {
-
+console.log("array de adres en action", arr)
     let addresses = arr.join(",")
     console.log( addresses, "addresses")
     return async function (dispatch) {
@@ -98,8 +98,7 @@ export function loginUser(email) {
     return async function (dispatch) {
         try {
             const { data } = await axios.get(`http://localhost:3001/wallet/user/${email}`)
-            dispatch({ type: 'LOGIN', payload: data })
-            console.log(data)
+            dispatch({ type: 'LOGIN', payload: data })            
             return data
         } catch (e) {
             console.log(e)
