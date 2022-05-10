@@ -1,8 +1,7 @@
 import { GET_FAV_WALLETS, GET_WALLET, GET_WALLET_TIME, USER_TOKEN, LOGIN, ERROR, COINS, GET_MULTIPLE_WALLETS } from './actions.js'
 
 
-const initialState = {
-    favWallets: [],
+const initialState = {    
     wallet: {},
     walletTime: {},
     userToken: {},
@@ -31,10 +30,17 @@ const rootReducer = (state = initialState, action) => {
                 favWallets: action.payload,
             }
         case GET_MULTIPLE_WALLETS:
-
+        let arr = []
+        
+            if (typeof action.payload.result === "string"){
+                arr = []
+            } else if (action.payload.result.length > 0) {
+                arr = action.payload.result
+            }
+            
             return {
                 ...state,
-                multipleWallets: action.payload,
+                multipleWallets: arr,
             }
         case GET_WALLET:
             let obj = { ...action.payload, address: action.address }

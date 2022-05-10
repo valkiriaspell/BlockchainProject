@@ -39,8 +39,8 @@ export class WalletController {
   }
 
  
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.walletService.remove(+id);
+  @Delete(':W_Address')
+  remove(@Param('W_Address') w_address: string) {
+    return this.walletService.removeWallet(w_address);
   }
 }

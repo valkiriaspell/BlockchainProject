@@ -61,6 +61,17 @@ export function saveWallet(wallet) {
     }
 }
 
+export function removeWallet(walletAddress) {
+    
+    return async function () {
+        try {
+            const { data } = await axios.delete(`http://localhost:3001/wallet/${walletAddress}`)            
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
 export function getMultipleWallets(arr) {
 console.log("array de adres en action", arr)
     let addresses = arr.join(",")

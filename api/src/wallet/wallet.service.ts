@@ -51,7 +51,8 @@ export class WalletService {
     
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} wallet`;
+  removeWallet(w_address: string) {
+    Wallet.destroy({where: {address: w_address}})
+    
   }
 }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEthereumData, getMultipleWallets, getWallet, getWalletEvents } from '../redux/actions';
+import { getEthereumData, getMultipleWallets, getWallet, getWalletEvents, loginUser, removeWallet } from '../redux/actions';
 import './home.modules.css'
 
 function MyWallets() {
@@ -10,32 +10,34 @@ function MyWallets() {
 
     //---> Local States
     let [coinName, setCoin] = useState("eth")
+    let [update, setUpdate] = useState(0)
+    
     
 
     //---> Store States
     const { user } = useSelector((state) => state)
     let { multipleWallets } = useSelector((state) => state)
-    const etherData = useSelector((state) => state.ethPrices)      
+    const etherData = useSelector((state) => state.ethPrices)  
+    const email = localStorage.getItem('email');    
 
     //---> functions
     
 
-    useEffect(() => {
+    useEffect( () => {
         console.log( "adress que vienen de back",user.wallets,)
+        dispatch(loginUser(email))
            if(user.wallets){
                dispatch(getMultipleWallets(user.wallets.map(e => e.address)))
             }       
-
     }, [])
 
     let finalWallets = []
-    if (user.wallets.length > 0 && multipleWallets.result.length > 0) {
-        if (typeof multipleWallets.result !== "string"){
-
-            multipleWallets.result.map(e =>
-                finalWallets.push({ account: e.account, balance: e.balance / (1000000000 * 1000000000) }))
+    if (user.wallets){
+        if (user.wallets !== [] && multipleWallets !== [] ) {          
+                multipleWallets.map(e =>
+                    finalWallets.push({ account: e.account, balance: e.balance / (1000000000 * 1000000000) }))            
             }
-    }
+        }
 
    function convertCoin(e) {
         e.preventDefault()        
@@ -43,7 +45,10 @@ function MyWallets() {
     }
 
     function removeFromFavs(e) {
-    console.log(e.target.value, "boton")
+        console.log(e.target.name, "boton")
+        dispatch(removeWallet(e.target.name))
+        setUpdate(0+1) 
+    dispatch(loginUser(email))
     }
 
     let coinSelected = etherData[coinName]    
@@ -53,10 +58,8 @@ function MyWallets() {
         finalWallets = newbalances
         
 
-// {
-//     "status":"1",
-//     "message":"OK",
-//     "result":[
+// multipleWallets:
+//     [
 //        {
 //           "account":"0xa65760c16a47bb1c7d5373d9d18736084e2d3f66",
 //           "balance":"5200000000000000000"
@@ -70,13 +73,13 @@ function MyWallets() {
 //           "balance":"500000000000000000"
 //        }
 //     ]
-//  }
+//  
 
 
 
 return (
     <div >
-        {user.wallets?
+        {user.wallets !== []?
         <div>        
         <div>
             <select className="btn btn-light" style={{ marginTop: 15 + "px" }} onChange={(e) => convertCoin(e)}>
@@ -94,7 +97,7 @@ return (
                             <p>Balance:</p>
                             <p className="card-text">{coinName} {(w.balance).toFixed(10)}</p>
                             <br></br>
-                            <button type="button" value={w.account} className="btn btn-light" style={{marginTop: 15 + "px"}} onClick={(e) => removeFromFavs(e)}>Remove from favorites</button>
+                            <button type="button" name={w.account} className="btn btn-light" style={{marginTop: 15 + "px"}} onClick={(e) => removeFromFavs(e)}>Remove from favorites</button>
                         </div>
                     </div>
                 )
@@ -105,7 +108,7 @@ return (
                   </div>}
         </div>
         </div>
-        : <h4></h4> }
+        : <p>No favorite wallets added</p> }
     </div>
 );
 }
