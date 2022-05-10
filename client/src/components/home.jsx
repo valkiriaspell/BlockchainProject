@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEthereumData, getMultipleWallets, getWallet, getWalletEvents, loginUser, saveWallet, userToken } from '../redux/actions';
 import './home.modules.css'
-
-
-
+import Swal from "sweetalert2";
+ 
 
 function Home() {
     const dispatch = useDispatch()
@@ -51,6 +50,17 @@ function Home() {
             dispatch(saveWallet({address: address, email: user.email}))
             dispatch(loginUser(email))
             dispatch(getMultipleWallets(user.wallets.map(e => e.address)))
+            Swal.fire({
+                icon: "success",
+                title: "Done",
+                text: 'You can see now this address in "My Wallets"',
+                heightAuto: false,
+                confirmButtonText: 'Ok'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.reload(true);
+						}
+                    });
         }        
     }
 

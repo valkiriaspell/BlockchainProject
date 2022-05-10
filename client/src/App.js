@@ -9,6 +9,7 @@ import Login from './components/login';
 import Menu from './components/menu';
 import MyWallets from './components/myWallets';
 import Calculator from './components/calculator';
+import LandingPage from './components/landingpage';
 
 initializeApp(config);
 
@@ -16,7 +17,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUpFirebase />} />
         <Route path='/calculator' element={
           <>

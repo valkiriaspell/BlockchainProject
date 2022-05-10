@@ -40,7 +40,7 @@ function SignUpFirebase() {
             input.password
           );
           if (registrar.accessToken) {            
-            navigate("/");
+            navigate("/login");
           } 
       }
 

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { getEthereumData, getMultipleWallets, getWallet, getWalletEvents, loginUser, removeWallet } from '../redux/actions';
 import './home.modules.css'
 
@@ -24,8 +25,8 @@ function MyWallets() {
     
 
     useEffect( () => {
-        console.log( "adress que vienen de back",user.wallets,)
         dispatch(loginUser(email))
+        console.log( "adress que vienen de back",user.wallets,)
            if(user.wallets){
                dispatch(getMultipleWallets(user.wallets.map(e => e.address)))
             }       
@@ -47,9 +48,21 @@ function MyWallets() {
     function removeFromFavs(e) {
         console.log(e.target.name, "boton")
         dispatch(removeWallet(e.target.name))
-        setUpdate(0+1) 
-    dispatch(loginUser(email))
+        setUpdate(0+1)
+        Swal.fire({
+            icon: "success",
+            title: "Done",
+            text: "The wallet's address was removed",
+            heightAuto: false,
+            confirmButtonText: 'Ok'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(loginUser(email))
+                document.location.reload(true);
+                    }
+                }); 
     }
+    
 
     let coinSelected = etherData[coinName]    
     let newbalances = []

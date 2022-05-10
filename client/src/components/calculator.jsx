@@ -68,8 +68,6 @@ function Calculator() {
                         <Button type='submit'>
                             Calculate
                         </Button>
-
-
                         <Form.Group>
                         <Form.Label>Result: </Form.Label>
                         <Form.Control
