@@ -10,7 +10,6 @@ export const ERROR = 'ERROR';
 export const COINS = 'COINS';
 
 
-
 export function getWallet(address) {
     return async function (dispatch) {        
         
@@ -36,7 +35,6 @@ return async function (dispatch) {
 
 }
 }
-
 
 export function getWalletEvents(address) {
     return async function (dispatch) {
