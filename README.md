@@ -7,11 +7,11 @@ A web application that connects to an ethereum wallet api and a cryptocurrency d
 It also has a conversion calculator ethereum to any currency.
 
 
-# DATABASE
+# Database
 PostgreSQL | Firebase
 
-# BACKEND
+# Backend
 Sequelize-typescript | NestJs
 
-# FRONTEND
+# Frontend
 Javascript (ES6) | React | Redux | Firebase | Bootstrap | SweetAlert 
