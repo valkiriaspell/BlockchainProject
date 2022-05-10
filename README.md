@@ -10,7 +10,7 @@ It also has a conversion calculator ethereum to any currency.
 
 ![Image text](https://github.com/valkiriaspell/NerdoProject/blob/master/eth2.png)
 
-![Image text](https://github.com/valkiriaspell/NerdoProject/blob/master/eth%203.jpg
+![Image text](https://github.com/valkiriaspell/NerdoProject/blob/master/eth%203.jpg)
 
 ![Image text](https://github.com/valkiriaspell/NerdoProject/blob/master/eth4.png)
 
